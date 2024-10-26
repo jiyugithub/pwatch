@@ -11,7 +11,7 @@ pub fn id_to_str(id: usize) -> &'static str {
         6 => "bp",
         7 => "sp",
         8 => "ip",
-        9 => "flags",
+        9 => "fl",
         10 => "cs",
         11 => "ss",
         12 => "r8",
