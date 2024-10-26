@@ -138,9 +138,10 @@ fn handle_event(data: SampleData) {
         println!();
     }
     if let Some(backtrace) = data.backtrace {
-        println!("{}:", "backtrace".yellow().bold());
+        print!("{}:", "backtrace".yellow().bold());
         for addr in backtrace {
-            println!("  0x{:016x}", addr);
+            print!("  0x{:016x}", addr);
+            print!(">");
         }
     }
     println!("end");
