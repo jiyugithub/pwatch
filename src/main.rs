@@ -143,4 +143,5 @@ fn handle_event(data: SampleData) {
             println!("  0x{:016x}", addr);
         }
     }
+    println!("-------");
 }
