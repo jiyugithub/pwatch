@@ -120,7 +120,7 @@ async fn main() -> anyhow::Result<()> {
 }
 
 fn handle_event(data: SampleData) {
-    println!("-------");
+    println!("start");
     println!(
         "{}: {} {}: {}",
         "pid".yellow().bold(),
@@ -143,5 +143,5 @@ fn handle_event(data: SampleData) {
             println!("  0x{:016x}", addr);
         }
     }
-    println!("-------");
+    println!("end");
 }
