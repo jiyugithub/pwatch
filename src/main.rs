@@ -3,6 +3,7 @@ use colored::Colorize;
 use log::error;
 use perf::{PerfMap, SampleData};
 use perf_event_open_sys as sys;
+use std::process;
 mod arch;
 mod perf;
 
@@ -124,7 +125,7 @@ fn handle_event(data: SampleData) {
     println!(
         "{}: {} {}: {}",
         "pid".yellow().bold(),
-        data.pid,
+        process::id(),
         "tid".yellow().bold(),
         data.tid
     );
