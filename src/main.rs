@@ -65,6 +65,7 @@ fn parse_addr(s: &str) -> Option<u64> {
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() -> anyhow::Result<()> {
+    println!(process::id());
     pretty_env_logger::init();
     let args = Args::parse();
 
