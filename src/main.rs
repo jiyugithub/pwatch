@@ -108,7 +108,7 @@ async fn main() -> anyhow::Result<()> {
         error!("no valid perf map");
         return Ok(());
     }
-    println!("pid:{}",process::id());
+    println!("processPid:{}",process::id());
     let (res, _, _) = futures::future::select_all(maps.into_iter().map(|m| {
         tokio::spawn(async move {
             if let Err(e) = m.events(handle_event).await {
