@@ -65,7 +65,6 @@ fn parse_addr(s: &str) -> Option<u64> {
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() -> anyhow::Result<()> {
-    println!(process::id());
     pretty_env_logger::init();
     let args = Args::parse();
 
@@ -109,6 +108,7 @@ async fn main() -> anyhow::Result<()> {
         error!("no valid perf map");
         return Ok(());
     }
+    println!(process::id());
     let (res, _, _) = futures::future::select_all(maps.into_iter().map(|m| {
         tokio::spawn(async move {
             if let Err(e) = m.events(handle_event).await {
