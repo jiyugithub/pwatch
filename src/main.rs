@@ -136,12 +136,14 @@ fn handle_event(data: SampleData) {
     }
     json_string.push_str("}, \"backtrace\": [");
     if let Some(backtrace) = data.backtrace {
+        let mut i = 0; // 新建变量 i
         for addr in backtrace {
             // 拼接堆栈地址
             json_string.push_str(&format!("\"0x{:016x}\"", addr));
             if i < backtrace.len() - 1 {
                 json_string.push_str(", "); // 添加逗号分隔
             }
+            i += 1; // 每次循环加 1
         }
     }
  
