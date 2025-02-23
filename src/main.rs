@@ -135,9 +135,8 @@ fn handle_event(data: SampleData) {
         }
     }
     json_string.push_str("}, \"backtrace\": [");
-
     if let Some(backtrace) = data.backtrace {
-        for (i, addr) in backtrace.iter().enumerate() {
+        for addr in backtrace {
             // 拼接堆栈地址
             json_string.push_str(&format!("\"0x{:016x}\"", addr));
             if i < backtrace.len() - 1 {
@@ -145,6 +144,7 @@ fn handle_event(data: SampleData) {
             }
         }
     }
+ 
     json_string.push_str("]}");
 
     // 输出合并后的 JSON 字符串
