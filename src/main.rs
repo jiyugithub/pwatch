@@ -130,22 +130,32 @@ fn handle_event(data: SampleData) {
         "tid".yellow().bold(),
         data.tid
     );
+
+    // 创建 JSON 字符串的开头
+    let mut json_string = String::from("{\"registers\": [");
+
     for (i, reg) in data.regs.iter().enumerate() {
-        print!("{:>5}: 0x{:016x} ", arch::id_to_str(i).bold().blue(), reg);
-        if (i + 1) % 4 == 0 {
-            println!();
+        // 拼接寄存器值
+        json_string.push_str(&format!("0x{:016x}", reg));
+        if i < data.regs.len() - 1 {
+            json_string.push_str(", "); // 添加逗号分隔
         }
     }
-    if data.regs.len() % 4 != 0 {
-        println!();
-    }
+    json_string.push_str("], \"backtrace\": [");
+
     if let Some(backtrace) = data.backtrace {
-        print!("{}:", "backtrace".yellow().bold());
-        for addr in backtrace {
-            print!("0x{:016x}", addr);
-            print!("&");
+        for (i, addr) in backtrace.iter().enumerate() {
+            // 拼接堆栈地址
+            json_string.push_str(&format!("0x{:016x}", addr));
+            if i < backtrace.len() - 1 {
+                json_string.push_str(", "); // 添加逗号分隔
+            }
         }
-        println!("");
     }
+    json_string.push_str("]}");
+
+    // 输出合并后的 JSON 字符串
+    println!("{}", json_string);
     println!("end");
 }
+
