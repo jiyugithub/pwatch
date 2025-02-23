@@ -123,7 +123,6 @@ async fn main() -> anyhow::Result<()> {
 
 fn handle_event(data: SampleData) {
     println!("start");
-
     // 创建 JSON 字符串的开头
     let mut json_string = String::from("{\"registers\": {");
 
@@ -139,19 +138,19 @@ fn handle_event(data: SampleData) {
     if let Some(backtrace) = data.backtrace {
         for (i, addr) in backtrace.iter().enumerate() {
             // 拼接堆栈地址
-            json_string.push_str(&format!(""0x{:016x}"", addr));
+            json_string.push_str(&format!("\"0x{:016x}\"", addr));
             if i < backtrace.len() - 1 {
                 json_string.push_str(", "); // 添加逗号分隔
             }
         }
     }
- 
     json_string.push_str("]}");
 
     // 输出合并后的 JSON 字符串
     println!("{}", json_string);
     println!("end");
 }
+
 
 
 
