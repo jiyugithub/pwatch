@@ -135,16 +135,12 @@ fn handle_event(data: SampleData) {
         }
     }
     json_string.push_str("}, \"backtrace\": [");
-   if let Some(backtrace) = data.backtrace {
-    for (i, addr) in backtrace.iter().enumerate() {
-        // 拼接堆栈地址
-        json_string.push_str(&format!("\"0x{:016x}\"", addr));
-        if i < backtrace.len() - 1 {
-            json_string.push_str(", "); // 添加逗号分隔
+
+    if let Some(backtrace) = data.backtrace {
+        for addr in backtrace {
+            json_string.push_str(&format!("\"0x{:016x}\"", addr));
         }
     }
-}
-
  
     json_string.push_str("]}");
 
