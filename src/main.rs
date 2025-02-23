@@ -125,30 +125,32 @@ fn handle_event(data: SampleData) {
     println!("start");
 
     // 创建 JSON 字符串的开头
-    let mut json_string = String::from("{\"data\": {");
+    let mut json_string = String::from("{\"registers\": {");
 
-    // 拼接寄存器
     for (i, reg) in data.regs.iter().enumerate() {
-        json_string.push_str(&format!("\"x{}\": \"0x{:016x}\"", i + 1, reg));
+        // 拼接寄存器值
+        json_string.push_str(&format!("\"{}\": \"0x{:016x}\"", arch::id_to_str(i), reg));
         if i < data.regs.len() - 1 {
             json_string.push_str(", "); // 添加逗号分隔
         }
     }
-    json_string.push_str(", \"backtrace\": {");
+    json_string.push_str("}, \"backtrace\": [");
 
     if let Some(backtrace) = data.backtrace {
         for (i, addr) in backtrace.iter().enumerate() {
-            json_string.push_str(&format!("\"x{}\": \"0x{:016x}\"", i + 1 + data.regs.len(), addr));
+            // 拼接堆栈地址
+            json_string.push_str(&format!("\"0x{:016x}\"", addr));
             if i < backtrace.len() - 1 {
                 json_string.push_str(", "); // 添加逗号分隔
             }
         }
     }
-    json_string.push_str("}}");
+    json_string.push_str("]}");
 
     // 输出合并后的 JSON 字符串
     println!("{}", json_string);
     println!("end");
 }
+
 
 
